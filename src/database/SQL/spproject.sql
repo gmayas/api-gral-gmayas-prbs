@@ -51,6 +51,6 @@ CREATE TABLE spproject.salesbook(
     folio NUMERIC,
     fecha DATE, 
     impuesto NUMERIC(2),
-    catidad NUMERIC(12,2),
+    cantidad NUMERIC(12,2),
     precio NUMERIC(12,2)
 );

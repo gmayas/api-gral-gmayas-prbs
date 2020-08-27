@@ -10,4 +10,5 @@ router.get('/getCatalogoArt', Validations_1.TokenValidation, spproject_controlle
 router.get('/getCatalogo/:id', Validations_1.TokenValidation, spproject_controller_1.getCatalogoId);
 router.post('/addArticulo', Validations_1.TokenValidation, spproject_controller_1.addArticulo);
 router.post('/updateArticulo/:id', Validations_1.TokenValidation, spproject_controller_1.updateArticulo);
+router.post('/regCompra', Validations_1.TokenValidation, spproject_controller_1.regCompra);
 exports.default = router;

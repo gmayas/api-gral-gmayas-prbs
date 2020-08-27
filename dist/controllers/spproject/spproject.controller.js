@@ -193,3 +193,30 @@ exports.updateArticulo = (req, res) => __awaiter(void 0, void 0, void 0, functio
         });
     }
 });
+exports.regCompra = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        let regCompra;
+        let bodyInt = req.body;
+        //console.log('bodyInt: ', bodyInt);
+        let newCompra = { detalle: bodyInt.detalle, success: false };
+        yield Promise.all(Object.keys(bodyInt.detalle).map((k, i) => __awaiter(void 0, void 0, void 0, function* () {
+            let { userid, artid, folio, fecha, impuesto, cantidad, precio } = bodyInt.detalle[k];
+            console.log('userid, artid, folio, fecha, impuesto, cantidad, precio: ', userid, artid, folio, fecha, impuesto, cantidad, precio);
+            // insert compra
+            regCompra = yield database_1.default.query(' INSERT INTO spproject.salesbook(userid, artid, folio, fecha, impuesto, cantidad, precio) VALUES ($1, $2, $3, $4, $5, $6, $7);', [userid, artid, folio, fecha, impuesto, cantidad, precio]);
+            //console.log('regCompra: ', regCompra);
+        })));
+        newCompra.success = true;
+        return res.status(200).json({
+            message: 'Compra add succesfully',
+            data: newCompra
+        });
+    }
+    catch (e) {
+        console.log(e);
+        return res.status(500).json({
+            message: 'Error in create compra',
+            error: e
+        });
+    }
+});

@@ -162,5 +162,32 @@ export const updateArticulo = async (req: Request, res: Response): Promise<Respo
     }
 };
 
+export const regCompra = async (req: Request, res: Response): Promise<Response> => {
+    try {
+        let regCompra: QueryResult;
+        let bodyInt: any = req.body;
+        //console.log('bodyInt: ', bodyInt);
+        let newCompra: any = { detalle: bodyInt.detalle, success: false };
+        await Promise.all(Object.keys(bodyInt.detalle).map(async (k, i) => {
+            let { userid, artid, folio, fecha, impuesto, cantidad, precio } = bodyInt.detalle[k];
+            console.log('userid, artid, folio, fecha, impuesto, cantidad, precio: ', userid, artid, folio, fecha, impuesto, cantidad, precio);
+            // insert compra
+            regCompra = await pool.query(' INSERT INTO spproject.salesbook(userid, artid, folio, fecha, impuesto, cantidad, precio) VALUES ($1, $2, $3, $4, $5, $6, $7);', [userid, artid, folio, fecha, impuesto, cantidad, precio]);
+            //console.log('regCompra: ', regCompra);
+        }));
+        newCompra.success = true;
+        return res.status(200).json({
+            message: 'Compra add succesfully',
+            data: newCompra
+        });
+    } catch (e) {
+        console.log(e);
+        return res.status(500).json({
+            message: 'Error in create compra',
+            error: e
+        })
+    }
+};
+
 
 

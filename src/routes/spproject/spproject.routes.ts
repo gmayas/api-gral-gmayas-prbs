@@ -1,7 +1,7 @@
 import { Router } from 'express';
 const router = Router();
 
-import { getCatalogo, getCatalogoDesc, getCatalogoId, getCatalogoArt, addArticulo, updateArticulo} from '../../controllers/spproject/spproject.controller'
+import { getCatalogo, getCatalogoDesc, getCatalogoId, getCatalogoArt, addArticulo, updateArticulo, regCompra} from '../../controllers/spproject/spproject.controller'
 import { TokenValidation } from '../../libs/Validations'
 
 router.get('/getCatalogo', TokenValidation, getCatalogo );
@@ -10,5 +10,6 @@ router.get('/getCatalogoArt', TokenValidation, getCatalogoArt );
 router.get('/getCatalogo/:id', TokenValidation, getCatalogoId );
 router.post('/addArticulo', TokenValidation, addArticulo);
 router.post('/updateArticulo/:id', TokenValidation, updateArticulo);
+router.post('/regCompra', TokenValidation, regCompra);
 
 export default router;
