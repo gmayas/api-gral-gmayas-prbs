@@ -12,7 +12,7 @@ const gpsproject_routes_1 = __importDefault(require("./routes/gpsproject/gpsproj
 const spproject_routes_1 = __importDefault(require("./routes/spproject/spproject.routes"));
 const app = express_1.default();
 // settings
-app.set('port', 3000 || process.env.PORT);
+app.set('port', 5000 || process.env.PORT);
 // Middlewares
 app.use(morgan_1.default('dev'));
 /*app.use(express.urlencoded({ extended: true }))

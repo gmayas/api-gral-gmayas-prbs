@@ -11,7 +11,7 @@ import spProjectRoutes from './routes/spproject/spproject.routes';
 const app: Application = express();
 
 // settings
-app.set('port', 3000 || process.env.PORT);
+app.set('port', 5000 || process.env.PORT);
 
 // Middlewares
 app.use(morgan('dev'));

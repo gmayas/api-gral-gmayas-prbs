@@ -6,7 +6,7 @@ import app from './app';
 
 function init() {
     app.listen(app.get('port'));
-    console.log('Server on port', 3000);
+    console.log('Server on port', 5000);
 };
 
 init();
