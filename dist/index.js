@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 const app_1 = __importDefault(require("./app"));
-//import './database/database';
+require("./database/database");
 function init() {
     app_1.default.listen(app_1.default.get('port'));
     console.log('Server on port', 5000);
