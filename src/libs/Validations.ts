@@ -35,9 +35,10 @@ export const encrypPassword = async (password: string): Promise<string> => {
    }
 };
 
-export const validatePassword = async function (password: string, QueryPassword: string): Promise<boolean> {
+export const validatePassword = async function (password: any, QueryPassword: any): Promise<boolean> {
     try{
-         return await bcrypt.compare(password, QueryPassword);
+        console.log('password, QueryPassword:', password, QueryPassword )
+        return await bcrypt.compare(password, QueryPassword);
     } catch (e) {
         console.log('Error validatePassword: false',  e);   
         return false;
