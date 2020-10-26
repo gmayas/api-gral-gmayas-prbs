@@ -48,11 +48,11 @@ export const signUp = async (req: Request, res: Response): Promise<Response> => 
 export const signIn = async (req: Request, res: Response): Promise<Response> => {
     try{
         console.log('req.body: ', req.body);
-        const { emailuser, passworduser } = req.body;
+        const { emailuser, passwordEnc } = req.body;
         const queryUser: QueryResult = await pool.query('SELECT * FROM authuser.users WHERE emailuser = $1', [emailuser]);
         if ( queryUser.rowCount <=0 ) return res.status(400).json('Email or Password is wrong');
         const dataResult = queryUser.rows.find(f => f.emailuser == emailuser);
-        const correctPassword = await validatePassword(passworduser, _.get(dataResult,'passworduser',''));
+        const correctPassword = await validatePassword(passwordEnc, _.get(dataResult,'passworduser',''));
         if (!correctPassword)
         {   
             dataResult.success = false;

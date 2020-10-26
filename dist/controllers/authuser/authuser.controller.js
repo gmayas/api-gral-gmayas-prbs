@@ -67,12 +67,12 @@ exports.signUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 exports.signIn = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         console.log('req.body: ', req.body);
-        const { emailuser, passworduser } = req.body;
+        const { emailuser, passwordEnc } = req.body;
         const queryUser = yield database_1.default.query('SELECT * FROM authuser.users WHERE emailuser = $1', [emailuser]);
         if (queryUser.rowCount <= 0)
             return res.status(400).json('Email or Password is wrong');
         const dataResult = queryUser.rows.find(f => f.emailuser == emailuser);
-        const correctPassword = yield Validations_1.validatePassword(passworduser, _.get(dataResult, 'passworduser', ''));
+        const correctPassword = yield Validations_1.validatePassword(passwordEnc, _.get(dataResult, 'passworduser', ''));
         if (!correctPassword) {
             dataResult.success = false;
             dataResult.token = '';
