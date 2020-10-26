@@ -46,6 +46,7 @@ exports.encrypPassword = (password) => __awaiter(void 0, void 0, void 0, functio
 exports.validatePassword = function (password, QueryPassword) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
+            console.log('password, QueryPassword:', password, QueryPassword);
             return yield bcryptjs_1.default.compare(password, QueryPassword);
         }
         catch (e) {
