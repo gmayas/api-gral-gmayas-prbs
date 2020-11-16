@@ -35,8 +35,8 @@ exports.TokenValidation = (req, res, next) => __awaiter(void 0, void 0, void 0, 
 });
 exports.encrypPassword = (password) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const salt = yield bcryptjs_1.default.genSaltSync(10);
-        return bcryptjs_1.default.hashSync(password, salt);
+        const salt = yield bcryptjs_1.default.genSalt(10);
+        return bcryptjs_1.default.hash(password, salt);
     }
     catch (e) {
         console.log('Encryption error (encrypPassword)', e);

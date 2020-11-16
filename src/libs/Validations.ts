@@ -27,8 +27,8 @@ export const TokenValidation = async (req: Request, res: Response, next: NextFun
 
 export const encrypPassword = async (password: string): Promise<string> => {
    try{
-    const salt = await bcrypt.genSaltSync(10);
-    return bcrypt.hashSync(password, salt);
+    const salt = await bcrypt.genSalt(10);
+    return bcrypt.hash(password, salt);
    } catch (e) {
        console.log('Encryption error (encrypPassword)', e);   
        return 'Encryption error (encrypPassword).';
