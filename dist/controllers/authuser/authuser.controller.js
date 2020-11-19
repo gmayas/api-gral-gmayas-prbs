@@ -42,7 +42,7 @@ exports.signUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         if (emailuserExists.rowCount > 0)
             return res.status(400).json('Email already exists');
         // encrypPassword
-        //newUser.passworduser = await encrypPassword(newUser.passworduser);
+        newUser.passworduser = yield Validations_1.encrypPassword(newUser.passworduser);
         // insert newUser
         const savedUser = yield database_1.default.query('INSERT INTO authuser.users(emailuser, nameuser, passworduser, typeiduser) VALUES ($1, $2, $3, $4);', [newUser.emailuser, newUser.nameuser, newUser.passworduser, newUser.typeiduser]);
         // get token
@@ -131,8 +131,7 @@ exports.updatePasswordUser = (req, res) => __awaiter(void 0, void 0, void 0, fun
     try {
         const newUser = {
             emailuser: req.body.emailuser,
-            passworduser: req.body.passworduser
-            //passworduser: await encrypPassword(req.body.passworduser)
+            passworduser: yield Validations_1.encrypPassword(req.body.passworduser)
         };
         console.log('newUser: ', newUser);
         // update new password

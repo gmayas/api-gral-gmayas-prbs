@@ -23,7 +23,7 @@ export const signUp = async (req: Request, res: Response): Promise<Response> => 
         emailuserExists = await pool.query('SELECT * FROM authuser.users WHERE emailuser = $1', [newUser.emailuser]);
         if (emailuserExists.rowCount > 0) return res.status(400).json('Email already exists');
         // encrypPassword
-        //newUser.passworduser = await encrypPassword(newUser.passworduser);
+        newUser.passworduser = await encrypPassword(newUser.passworduser);
         // insert newUser
         const savedUser: QueryResult = await pool.query('INSERT INTO authuser.users(emailuser, nameuser, passworduser, typeiduser) VALUES ($1, $2, $3, $4);', [newUser.emailuser, newUser.nameuser, newUser.passworduser, newUser.typeiduser]);
         // get token
@@ -114,8 +114,7 @@ export const updatePasswordUser = async (req: Request, res: Response): Promise<R
   try{
         const newUser: any = {
             emailuser: req.body.emailuser,
-            passworduser: req.body.passworduser
-            //passworduser: await encrypPassword(req.body.passworduser)
+            passworduser: await encrypPassword(req.body.passworduser)
         };
         console.log('newUser: ', newUser)
         // update new password
