@@ -3,6 +3,7 @@ import { QueryResult } from 'pg';
 import  pool  from '../../database/database';
 import * as _ from 'lodash';
 import {  encrypPassword, validatePassword } from '../../libs/Validations'
+import { Base64 } from 'js-base64';
 /*var redis = require('redis');
 var JWTR =  require('jwt-redis').default;
 var redisClient = redis.createClient();
@@ -15,7 +16,7 @@ export const signUp = async (req: Request, res: Response): Promise<Response> => 
         const newUser: any = {
             emailuser: req.body.emailuser,
             nameuser: req.body.nameuser,
-            passworduser: req.body.passworduser,
+            passworduser:  Base64.decode(req.body.passworduser),
             typeiduser: req.body.typeiduser
         };
         console.log('newUser: ', newUser);
@@ -52,7 +53,7 @@ export const signIn = async (req: Request, res: Response): Promise<Response> => 
         const queryUser: QueryResult = await pool.query('SELECT * FROM authuser.users WHERE emailuser = $1', [emailuser]);
         if ( queryUser.rowCount <=0 ) return res.status(400).json('Email or Password is wrong');
         const dataResult = queryUser.rows.find(f => f.emailuser == emailuser);
-        const correctPassword = await validatePassword(passwordEnc, _.get(dataResult,'passworduser',''));
+        const correctPassword = await validatePassword(Base64.decode(passwordEnc), _.get(dataResult,'passworduser',''));
         if (!correctPassword)
         {   
             dataResult.success = false;

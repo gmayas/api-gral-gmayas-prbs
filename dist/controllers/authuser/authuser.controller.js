@@ -22,6 +22,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const database_1 = __importDefault(require("../../database/database"));
 const _ = __importStar(require("lodash"));
 const Validations_1 = require("../../libs/Validations");
+const js_base64_1 = require("js-base64");
 /*var redis = require('redis');
 var JWTR =  require('jwt-redis').default;
 var redisClient = redis.createClient();
@@ -33,7 +34,7 @@ exports.signUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const newUser = {
             emailuser: req.body.emailuser,
             nameuser: req.body.nameuser,
-            passworduser: req.body.passworduser,
+            passworduser: js_base64_1.Base64.decode(req.body.passworduser),
             typeiduser: req.body.typeiduser
         };
         console.log('newUser: ', newUser);
@@ -72,7 +73,7 @@ exports.signIn = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         if (queryUser.rowCount <= 0)
             return res.status(400).json('Email or Password is wrong');
         const dataResult = queryUser.rows.find(f => f.emailuser == emailuser);
-        const correctPassword = yield Validations_1.validatePassword(passwordEnc, _.get(dataResult, 'passworduser', ''));
+        const correctPassword = yield Validations_1.validatePassword(js_base64_1.Base64.decode(passwordEnc), _.get(dataResult, 'passworduser', ''));
         if (!correctPassword) {
             dataResult.success = false;
             dataResult.token = '';
