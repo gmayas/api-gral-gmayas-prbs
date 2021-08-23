@@ -43,7 +43,8 @@ export const getCatalogoDesc = async (req: Request, res: Response): Promise<Resp
 export const getCatalogoId = async (req: Request, res: Response): Promise<Response> => {
     try {
         const { id } = req.params;
-        const response: QueryResult = await pool.query('Select id, grupo, claveart, articulo, urlimagen, impuesto, precio from spproject.catalogo Where id = $1;', [id]);
+        const response: QueryResult = await pool
+        .query('Select id, grupo, claveart, articulo, urlimagen, impuesto, precio from spproject.catalogo Where id = $1;', [id]);
         const dataResp = response.rows;
         return res.status(200).json({
             message: 'Query succesfully',

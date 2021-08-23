@@ -12,4 +12,4 @@ router.post('/addArticulo', TokenValidation, addArticulo);
 router.post('/updateArticulo/:id', TokenValidation, updateArticulo);
 router.post('/regCompra', TokenValidation, regCompra);
 
-export default router;
+export default router;    

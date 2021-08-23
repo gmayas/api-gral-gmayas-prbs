@@ -62,7 +62,8 @@ export const signIn = async (req: Request, res: Response): Promise<Response> => 
             return res.status(400).json(dataResult);
         } 
         // Get Token
-        const token: string = await jwt.sign({ emailuser: _.get( dataResult, 'emailuser','') }, process.env['TOKEN_SECRET'] || '',  {
+        const token: string = await jwt.sign({ emailuser: _.get( dataResult, 'emailuser','') }, process.env['TOKEN_SECRET'] || '', 
+        { 
             expiresIn: 60 * 60 * 24 // Duracion de 24 hrs
         });
         dataResult.token = token;
